@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion, useAnimation, Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -140,12 +141,12 @@ export default function Hero() {
           animate={{ opacity: showLogo ? 1 : 0, y: showLogo ? 0 : 20 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
         >
-            <button className="bg-brand hover:bg-brand-hover text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg hover:shadow-brand/25">
+            <Link href="/contact" className="bg-brand hover:bg-brand-hover text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg hover:shadow-brand/25">
                 {t('cta_contact')} <ArrowRight size={20} />
-            </button>
-            <button className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 transition-all backdrop-blur-sm border border-white/10 hover:border-white/20">
+            </Link>
+            <a href="https://pwa.hxhtad.com/login" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 transition-all backdrop-blur-sm border border-white/10 hover:border-white/20">
                 <Play size={20} className="fill-current" /> {t('cta_demo')}
-            </button>
+            </a>
         </motion.div>
       </div>
       

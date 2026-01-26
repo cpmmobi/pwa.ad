@@ -107,19 +107,19 @@ export default function ContactForm() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'pwa' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
                   <input type="radio" name="need" value="pwa" className="accent-blue-500" checked={selectedNeed === 'pwa'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm">{t('need_pwa')}</span>
+                  <span className="text-sm text-white">{t('need_pwa')}</span>
               </label>
               <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'w2a' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
                   <input type="radio" name="need" value="w2a" className="accent-blue-500" checked={selectedNeed === 'w2a'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm">{t('need_w2a')}</span>
+                  <span className="text-sm text-white">{t('need_w2a')}</span>
               </label>
               <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'both' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
                   <input type="radio" name="need" value="both" className="accent-blue-500" checked={selectedNeed === 'both'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm">{t('need_both')}</span>
+                  <span className="text-sm text-white">{t('need_both')}</span>
               </label>
               <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'other' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
                   <input type="radio" name="need" value="other" className="accent-blue-500" checked={selectedNeed === 'other'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm">{t('need_other')}</span>
+                  <span className="text-sm text-white">{t('need_other')}</span>
               </label>
           </div>
           {selectedNeed === 'other' && (

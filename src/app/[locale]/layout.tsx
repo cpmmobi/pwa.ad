@@ -1,6 +1,7 @@
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
+import Script from 'next/script';
 import {routing} from '@/i18n/routing';
 import "../globals.css";
 
@@ -33,6 +34,19 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className="antialiased bg-slate-950 text-white font-sans selection:bg-brand/30 selection:text-brand-foreground">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-JFTG28MSCD"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-JFTG28MSCD');
+          `}
+        </Script>
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main className="min-h-screen pt-16">

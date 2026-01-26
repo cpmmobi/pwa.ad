@@ -1,3 +1,4 @@
+import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
 export default function CTA() {
@@ -16,9 +17,9 @@ export default function CTA() {
             {t('description')}
           </p>
           
-          <button className="bg-brand hover:bg-brand-hover text-white px-8 py-3 rounded-full font-bold text-lg transition-all relative z-10 hover:shadow-[0_0_20px_rgba(0,194,80,0.4)] hover:scale-105 transform duration-200">
+          <Link href="/contact" className="inline-block bg-brand hover:bg-brand-hover text-white px-8 py-3 rounded-full font-bold text-lg transition-all relative z-10 hover:shadow-[0_0_20px_rgba(0,194,80,0.4)] hover:scale-105 transform duration-200">
             {t('button')}
-          </button>
+          </Link>
         </div>
       </div>
     </section>
