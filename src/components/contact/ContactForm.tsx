@@ -1,21 +1,70 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 
 export default function ContactForm() {
   const t = useTranslations('Contact');
+  const locale = useLocale();
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [selectedNeed, setSelectedNeed] = useState('both');
   const [showOtherRegion, setShowOtherRegion] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Simulate form submission
-    setTimeout(() => {
+    setSubmitting(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      
+      const data = {
+        company: formData.get('company'),
+        business_type: formData.get('business_type'),
+        telegram: formData.get('telegram'),
+        regions: formData.getAll('region'),
+        region_detail: formData.get('region_detail'),
+        need: formData.get('need'),
+        need_detail: formData.get('need_detail'),
+        locale: locale,
+        source_info: {
+          referrer: document.referrer,
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+          browserLanguage: navigator.language,
+        }
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      // Trigger GA Event
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'submit_form', {
+          'event_category': 'Contact',
+          'event_label': 'Contact Form Submission',
+          'business_type': data.business_type,
+          'region': data.regions.join(',')
+        });
+      }
+
       setSubmitted(true);
-    }, 1000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert(t('error_submit')); // Assuming you might want to add this key or just use a generic message
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -33,12 +82,12 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_company')}</label>
-          <input type="text" required className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+          <input type="text" name="company" required className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_business')}</label>
-              <select className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+              <select name="business_type" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
                   <option value="real_money">{t('type_real_money')}</option>
                   <option value="live_entertainment">{t('type_live_entertainment')}</option>
                   <option value="drama_novel">{t('type_drama_novel')}</option>
@@ -49,7 +98,7 @@ export default function ContactForm() {
           </div>
           <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_telegram')}</label>
-              <input type="text" required placeholder="@username" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+              <input type="text" name="telegram" required placeholder="@username" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
           </div>
         </div>
 
@@ -135,8 +184,17 @@ export default function ContactForm() {
           )}
         </div>
 
-        <button type="submit" className="w-full bg-brand hover:bg-brand-hover text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(0,194,80,0.3)]">
-          <Send size={18} /> {t('submit')}
+        <button type="submit" disabled={submitting} className="w-full bg-brand hover:bg-brand-hover text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(0,194,80,0.3)] disabled:opacity-50 disabled:cursor-not-allowed">
+          {submitting ? (
+            <>
+              <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+              {t('sending')}
+            </>
+          ) : (
+            <>
+              <Send size={18} /> {t('submit')}
+            </>
+          )}
         </button>
       </form>
     </div>

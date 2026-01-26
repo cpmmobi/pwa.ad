@@ -1,7 +1,7 @@
 {
   "HomePage": {
-    "title": "PWA/APK Smart Encapsulation",
-    "subtitle": "One-stop solution for Intelligent Cloaking, Attribution, and High-Conversion Landing Pages."
+    "title": "PWA/APK Smart Encapsulation - Intelligent Cloaking & Attribution Solution | PWA.ad",
+    "subtitle": "One-stop PWA/APK encapsulation, intelligent cloaking, and precise ad attribution services. Bypass Google Play restrictions and solve attribution issues for Real Money Gaming, Live Streaming, and Novel apps."
   },
   "Hero": {
     "title_brand": "PWA.ad",
@@ -34,7 +34,7 @@
     "cloaking_point3": "Boost CTR by 50%",
 
     "attribution_title": "Precise Attribution",
-    "attribution_desc": "Full support for AppsFlyer, Adjust, Facebook, and more.",
+    "attribution_desc": "Full support for AppsFlyer, Adjust, Facebook, TikTok, Kwai, and more.",
     "attribution_detail_title": "Full-Link Data Transparency",
     "attribution_detail_desc": "Connect ad platforms with landing page data to solve PWA attribution gaps. Track every click, install, and registration in real-time.",
     "attribution_point1": "Support Mainstream MMPs",
@@ -106,28 +106,30 @@
     "button": "Contact Us"
   },
   "FAQ": {
-    "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about PWA encapsulation & attribution",
+    "title": "FAQ - PWA Encapsulation & Attribution",
+    "subtitle": "Professional answers about PWA/APK encapsulation, intelligent cloaking, and attribution technology",
     "q1": "Do I need to provide source code for PWA?",
     "a1": "No. You only need to provide your H5 website URL and related Logo assets. We handle the encapsulation without touching your code.",
     "q2": "Will PWA apps be banned by Google Play?",
     "a2": "Absolutely not. PWAs run on browser technology and do not rely on app store distribution, so there is zero risk of bans, takedowns, or account association.",
     "q3": "Which third-party platforms does the attribution system support?",
-    "a3": "We are fully compatible with mainstream ad & attribution platforms including AppsFlyer, Adjust, Facebook Pixel, and Google Ads, supporting full-link data postback.",
-    "q4": "How long does it take to convert PWA to APK?",
-    "a4": "Our automated process typically generates a standard APK installation package within 10 minutes, supporting custom signatures and package names.",
+    "a3": "We are fully compatible with mainstream ad & attribution platforms including AppsFlyer, Adjust, Facebook Pixel, TikTok Pixel, and Kwai Ads, supporting full-link data postback.",
+    "q4": "How long does PWA encapsulation or APK packaging take?",
+    "a4": "PWA encapsulation and W2A (Web-to-APK) are two separate functions, but both are highly efficient. Our automated process typically completes either packaging within 10 minutes, supporting custom signatures and package names.",
     "q5": "How is the pricing structured?",
-    "a5": "PWA plan: $0.01 per install. W2A plan: $0.01 per download. Volume discounts are available for large clients. Please contact us for details.",
+    "a5": "We operate on a flexible pre-recharge model. You can top up any amount (min. $100) in the dashboard, and the system automatically deducts fees based on actual PWA installs or W2A downloads ($0.01 per action). Pay as you go, with no expiration on your balance, so you don't have to worry about high upfront costs or wasted funds. Volume discounts are available for large clients.",
     "q6": "Can I try it out?",
     "a6": "Certainly. Please contact our business team to get free test credits and experience the full process yourself.",
     "q7": "What payment methods are supported?",
     "a7": "We only support USDT top-ups. This ensures maximum payment privacy and fund security for both parties, avoiding risks associated with traditional fiat payments.",
     "q8": "Do you offer private deployment?",
-    "a8": "Yes. For clients with high data security requirements, we offer private deployment upon payment of a deposit. You will need to provide server resources and domain access, and we will handle the deployment and delivery."
+    "a8": "Yes. For clients with high data security requirements, we offer private deployment upon payment of a deposit. You will need to provide server resources and domain access, and we will handle the deployment and delivery.",
+    "q9": "Is there a minimum recharge amount?",
+    "a9": "Yes, the minimum recharge amount is $100. This is to ensure that every client receives high-quality technical support and server resources. We are committed to serving long-term partners, and frequent small transactions would increase operational costs. We appreciate your understanding."
   },
   "Contact": {
-    "title": "Contact Us",
-    "subtitle": "Get a customized solution for your business.",
+    "title": "Contact Us - Get PWA Quote",
+    "subtitle": "Get a customized PWA/APK solution for your business",
     "form_company": "Business Name / Product Link",
     "company_placeholder": "Business Name or Product Link",
     "form_telegram": "Telegram ID",
@@ -157,6 +159,8 @@
     "need_other": "Other",
     "need_other_placeholder": "Please specify your needs",
     "submit": "Send Message",
+    "sending": "Sending...",
+    "error_submit": "Submission failed, please try again later.",
     "success": "Message sent successfully!",
     "contact_info": "Or contact us directly:",
     "response_time_text": "Our support team is available 24/7 to assist you with integration and troubleshooting. Typical response time is under 4 hours."
@@ -182,9 +186,11 @@
     "copyright": "© {year} PWA.ad. All rights reserved."
   },
   "Legal": {
-    "privacy_title": "Privacy Policy",
-    "privacy_content": "This Privacy Policy describes how your personal information is collected, used, and shared when you visit PWA.ad.\n\n1. Information Collection\nWe collect personal information you provide when you register, use our services, or contact us, including but not limited to your name, email address, and contact details.\n\n2. Information Use\nWe use the collected information to provide and improve our services, process payments, send notifications, and comply with legal obligations.\n\n3. Information Sharing\nWe do not sell or share your personal information with third parties unless required by law or with your consent.\n\n4. Data Security\nWe take reasonable security measures to protect your personal information from unauthorized access, disclosure, or destruction.\n\n5. Changes\nWe may update this privacy policy from time to time. Any changes will be posted on this page.",
-    "terms_title": "Terms of Service",
-    "terms_content": "Welcome to PWA.ad. By accessing or using our services, you agree to be bound by these Terms and Conditions.\n\n1. Use of Service\nYou agree to use our services only for lawful purposes and in compliance with all applicable laws and regulations.\n\n2. Account Responsibility\nYou are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.\n\n3. Intellectual Property\nThe intellectual property rights of PWA.ad and its content belong to us. Reproduction or distribution without permission is prohibited.\n\n4. Disclaimer\nOur services are provided \"as is\" without any warranties, express or implied.\n\n5. Limitation of Liability\nTo the maximum extent permitted by law, we shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services."
+    "privacy_title": "Privacy Policy - PWA.ad",
+    "privacy_meta_desc": "Learn how PWA.ad collects, uses, and protects your personal information. We are committed to ensuring your data security and privacy.",
+    "privacy_content": "Last Updated: March 1, 2024\n\nWelcome to PWA.ad (hereinafter referred to as \"we\" or \"us\"). We value your privacy and are committed to protecting your personal information. This Privacy Policy details how we collect, use, store, and protect your information.\n\n1. Information Collection\nTo provide you with precise PWA encapsulation, attribution analysis, and ad optimization services, we may collect the following information:\n- **Contact Information**: When you submit a consultation form, we collect your Telegram ID, business link, business type, and requirements to allow our business team to contact you.\n- **Device & Log Information**: We automatically collect your IP address, browser type, language settings, access time, and source (e.g., referral sites, ad parameters) to analyze traffic sources, optimize website experience, and prevent malicious attacks.\n- **Business Data**: When using our PWA encapsulation or attribution services, the H5 links, Logo assets, and attribution data (e.g., installs, registrations) you provide are used solely for service provision and never for other commercial purposes.\n\n2. Information Use\nWe use the collected information to:\n- Process your business requests and provide PWA encapsulation, APK generation, and attribution integration services.\n- Send service updates, technical support, or promotional notifications via Telegram or other contact methods.\n- Analyze website traffic and user behavior to optimize our product features and page design.\n- Comply with legal obligations to ensure platform and user security.\n\n3. Information Sharing & Disclosure\nWe promise to keep your information strictly confidential unless:\n- **With your explicit consent**.\n- **Required by law**: In response to mandatory requests from courts, government agencies, or legal processes.\n- **Service Necessity**: To complete attribution integration, we may need to postback non-sensitive data (e.g., attribution events) to your specified third-party platforms (e.g., AppsFlyer, Adjust, Facebook).\n\n4. Data Security\nWe employ industry-leading security technologies (e.g., SSL encryption, access control, firewalls) to protect your data. For sensitive payment information, we only support USDT cryptocurrency payments to maximize your fund and identity privacy.\n\n5. Cookies\nWe use Cookies to record your preferences and analyze traffic. You can refuse Cookies through your browser settings, but this may affect the use of some functions.\n\n6. Policy Updates\nWe may update this policy based on business development. Significant changes will be notified via website announcements or direct notifications.\n\nIf you have any questions, please contact our support team via Telegram.",
+    "terms_title": "Terms of Service - PWA.ad",
+    "terms_meta_desc": "Terms and conditions for using PWA.ad services. Please read carefully to understand your rights and obligations.",
+    "terms_content": "Effective Date: March 1, 2024\n\nWelcome to the PWA intelligent encapsulation and attribution service provided by PWA.ad. Please read the following terms carefully before using this service. Accessing or using this website constitutes your agreement to be bound by these terms.\n\n1. Service Content\nPWA.ad provides services including but not limited to:\n- H5 website to PWA/APK app encapsulation.\n- Intelligent Cloaking technology and crawler blocking.\n- Cross-platform ad attribution data integration (AppsFlyer, Adjust, Facebook, TikTok, Kwai, etc.).\n- High-conversion Google Play-like landing page generation.\n\n2. User Obligations\n- **Compliance**: You promise that the business content submitted for encapsulation complies with the laws and regulations of the target region. Using this service for fraud, malware distribution, or other illegal activities is strictly prohibited. Once discovered, we have the right to terminate the service immediately and cooperate with law enforcement investigations.\n- **Truthfulness**: You shall provide true and accurate contact information and business details. You are solely responsible for any service interruption or loss caused by incorrect information.\n- **Payment**: You agree to pay service fees on time according to the agreed price (e.g., $0.01/install) and method (USDT).\n\n3. Disclaimer\n- **Technical Limitations**: Although our intelligent cloaking technology significantly improves approval rates, due to the uncontrollability of Google/Facebook review rules, we do not promise a 100% approval success rate, nor are we responsible for ad spend losses caused by review failures.\n- **Third-Party Services**: We are not jointly liable for data loss or discrepancies caused by third-party attribution platform (MMP) or ad platform failures, but we will do our best to assist in troubleshooting.\n- **Force Majeure**: We are not liable for compensation for service interruptions caused by force majeure such as natural disasters, cyber attacks, or telecommunication failures.\n\n4. Intellectual Property\nAll code, designs, algorithms, and content of the PWA.ad website and system belong to us. You may not copy, modify, or reverse engineer our system without written permission.\n\n5. Termination\nIf you violate these terms (especially regarding illegal business), we have the right to immediately terminate the service without notice and without refunding any fees paid.\n\n6. Dispute Resolution\nThese terms are governed by relevant laws. Any disputes shall be resolved through friendly negotiation; if negotiation fails, they shall be submitted to our designated arbitration institution."
   }
 }

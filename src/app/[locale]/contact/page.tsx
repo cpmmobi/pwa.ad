@@ -2,13 +2,17 @@ import { useTranslations } from 'next-intl';
 import { Mail } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import ContactForm from '@/components/contact/ContactForm';
+import SectionTitle from '@/components/ui/SectionTitle';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'Contact'});
   return {
-    title: `${t('title')} - PWA.ad`,
-    description: t('subtitle')
+    title: `${t('title')} | PWA.ad`,
+    description: t('subtitle'),
+    alternates: {
+      canonical: `https://pwa.ad/${locale}/contact`,
+    }
   };
 }
 
@@ -20,8 +24,10 @@ export default function ContactPage() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-            <p className="text-gray-400">{t('subtitle')}</p>
+            <SectionTitle className="mb-4">
+              {t('title')}
+            </SectionTitle>
+            <p className="text-gray-400 text-lg font-medium">{t('subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-5 gap-8">

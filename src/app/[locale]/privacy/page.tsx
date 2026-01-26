@@ -5,7 +5,12 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'Legal'});
   return {
-    title: `${t('privacy_title')} - PWA.ad`,
+    title: t('privacy_title'),
+    description: t('privacy_meta_desc'),
+    robots: {
+      index: false,
+      follow: true,
+    }
   };
 }
 

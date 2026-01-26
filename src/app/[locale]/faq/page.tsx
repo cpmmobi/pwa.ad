@@ -8,8 +8,11 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'FAQ'});
   return {
-    title: `${t('title')} - PWA.ad`,
-    description: t('subtitle')
+    title: `${t('title')} | PWA.ad`,
+    description: t('subtitle'),
+    alternates: {
+      canonical: `https://pwa.ad/${locale}/faq`,
+    }
   };
 }
 
@@ -25,6 +28,7 @@ export default function FAQPage() {
     { q: t('q6'), a: t('a6') },
     { q: t('q7'), a: t('a7') },
     { q: t('q8'), a: t('a8') },
+    { q: t('q9'), a: t('a9') },
   ];
 
   return (
