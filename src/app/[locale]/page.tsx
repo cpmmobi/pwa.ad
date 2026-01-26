@@ -8,7 +8,7 @@ import Stats from '@/components/home/Stats';
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-slate-950">
       <Hero />
       <WhatIsPWA />
       <Comparison />
