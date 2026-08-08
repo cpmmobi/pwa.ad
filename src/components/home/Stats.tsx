@@ -70,7 +70,7 @@ export default function Stats() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-base md:text-lg text-gray-400 mb-2 font-medium tracking-wide">
+          <h2 className="text-base md:text-lg text-slate-300 mb-2 font-medium tracking-wide">
             {t('title')}
           </h2>
           

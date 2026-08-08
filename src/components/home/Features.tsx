@@ -113,7 +113,7 @@ export default function Features() {
               <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-brand transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-gray-400 text-sm">{feature.desc}</p>
+              <p className="text-slate-300 text-sm">{feature.desc}</p>
             </button>
           ))}
         </div>
@@ -128,7 +128,7 @@ export default function Features() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6 }}
-                    className="bg-slate-950 rounded-3xl border border-white/10 overflow-hidden shadow-2xl scroll-mt-24"
+                    className="bg-slate-950 rounded-3xl border border-white/20 overflow-hidden shadow-2xl scroll-mt-24"
                 >
                     <div className="grid md:grid-cols-2 gap-0">
                         {/* Text Content */}
@@ -146,7 +146,7 @@ export default function Features() {
                             <h3 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 text-white leading-tight tracking-tight drop-shadow-2xl">
                                 {feature.title}
                             </h3>
-                            <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                            <p className="text-slate-300 text-lg leading-relaxed mb-8">
                                 {feature.detailDesc}
                             </p>
                             <ul className="space-y-4">

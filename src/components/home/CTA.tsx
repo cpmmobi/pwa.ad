@@ -7,7 +7,7 @@ export default function CTA() {
   return (
     <section className="py-20 px-4 relative z-20">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-gradient-to-r from-slate-900 to-slate-900/90 rounded-2xl p-12 text-center border border-white/10 relative overflow-hidden shadow-2xl shadow-brand/10 backdrop-blur-xl">
+        <div className="bg-gradient-to-r from-slate-900 to-slate-900/90 rounded-2xl p-12 text-center border border-white/20 relative overflow-hidden shadow-2xl shadow-brand/10 backdrop-blur-xl">
           <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20"></div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">

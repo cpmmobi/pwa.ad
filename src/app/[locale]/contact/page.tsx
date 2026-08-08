@@ -27,35 +27,39 @@ export default function ContactPage() {
             <SectionTitle className="mb-4">
               {t('title')}
             </SectionTitle>
-            <p className="text-gray-400 text-lg font-medium">{t('subtitle')}</p>
+            <p className="text-slate-300 text-lg font-medium">{t('subtitle')}</p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-8">
+          <div className="max-w-3xl mx-auto space-y-8">
             {/* Contact Form */}
-            <div className="md:col-span-3">
-              <ContactForm />
-            </div>
+            <ContactForm />
 
-            {/* Direct Contact Info */}
-            <div className="md:col-span-2 space-y-6">
-                <div className="bg-gradient-to-br from-brand/20 to-slate-900/40 p-6 rounded-2xl border border-white/10">
-                    <h3 className="text-lg font-bold mb-6">{t('contact_info')}</h3>
-
-                    <a href="mailto:support@pwa.ad" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group">
-                        <div className="bg-sky-500/20 p-3 rounded-lg text-sky-400 group-hover:scale-110 transition-transform">
-                            <Mail size={24} />
-                        </div>
-                        <div>
-                            <div className="text-sm text-gray-400">Email</div>
-                            <div className="font-semibold text-white">support@pwa.ad</div>
-                        </div>
-                    </a>
+            {/* Bottom Info / Trust Panel */}
+            <div className="p-8 rounded-2xl border border-white/10 bg-slate-900/30 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                <div className="w-14 h-14 shrink-0 rounded-full bg-brand/10 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-2">100% 隐私保护</h3>
+                  <div className="text-sm text-slate-400 leading-relaxed">
+                      {t('response_time_text')}
+                  </div>
                 </div>
 
-                <div className="p-6 rounded-2xl border border-white/5 bg-slate-950/50">
-                    <div className="text-sm text-gray-500 leading-relaxed">
-                        {t('response_time_text')}
-                    </div>
+                <div className="flex flex-col gap-3 text-sm text-slate-300 md:pl-8 md:border-l border-white/10">
+                  <div className="flex items-center justify-center md:justify-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
+                    您的业务数据将严格保密
+                  </div>
+                  <div className="flex items-center justify-center md:justify-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
+                    技术专家 1v1 专属对接
+                  </div>
+                  <div className="flex items-center justify-center md:justify-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
+                    最快 4 小时内完成部署
+                  </div>
                 </div>
             </div>
           </div>

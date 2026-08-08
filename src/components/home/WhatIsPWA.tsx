@@ -31,21 +31,21 @@ export default function WhatIsPWA() {
             <h3 className="text-xl md:text-2xl text-brand font-medium mb-6">
                 {t('subtitle')}
             </h3>
-            <p className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto">
+            <p className="text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto">
                 {t('desc')}
             </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {features.map((feature, index) => (
-                <div key={index} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand/30 transition-all hover:bg-white/[0.07] group">
+                <div key={index} className="bg-white/5 p-8 rounded-2xl border border-white/20 hover:border-brand/30 transition-all hover:bg-white/[0.07] group">
                     <div className="bg-slate-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/50">
                         {feature.icon}
                     </div>
                     <h4 className="text-xl font-bold mb-4 text-white group-hover:text-brand transition-colors">
                         {feature.title}
                     </h4>
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className="text-slate-300 leading-relaxed">
                         {feature.desc}
                     </p>
                 </div>

@@ -9,24 +9,98 @@ export default function ContactForm() {
   const locale = useLocale();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [selectedNeed, setSelectedNeed] = useState('both');
+  const [selectedSolution, setSelectedSolution] = useState('pwa_distribution');
   const [showOtherRegion, setShowOtherRegion] = useState(false);
+  const [urlInput, setUrlInput] = useState('');
+  const [telegramInput, setTelegramInput] = useState('');
+  const [urlError, setUrlError] = useState('');
+  const [telegramError, setTelegramError] = useState('');
+
+  const validateUrl = (url: string) => {
+    if (!url) return false;
+    let urlToTest = url.trim();
+    if (!/^https?:\/\//i.test(urlToTest)) {
+      urlToTest = 'http://' + urlToTest;
+    }
+    
+    // More strict URL validation regex
+    // Ensures it has at least a valid domain (e.g. something.com)
+    const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
+    
+    if (!urlPattern.test(urlToTest)) {
+        return false;
+    }
+
+    try {
+      new URL(urlToTest);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const formatUrl = (url: string) => {
+    if (!url) return url;
+    if (!/^https?:\/\//i.test(url)) {
+      return 'https://' + url;
+    }
+    return url;
+  };
+
+  const validateTelegram = (tg: string) => {
+    if (!tg) return false;
+    const tgPattern = /^@?[a-zA-Z0-9_]{5,}$|^https?:\/\/t\.me\/[a-zA-Z0-9_]{5,}$/;
+    return tgPattern.test(tg.trim());
+  };
+
+  const handleUrlBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const val = e.target.value.trim();
+    if (val && !validateUrl(val)) {
+      setUrlError(t('error_invalid_url'));
+    } else {
+      setUrlError('');
+      setUrlInput(formatUrl(val));
+    }
+  };
+
+  const handleTelegramBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const val = e.target.value.trim();
+    if (val && !validateTelegram(val)) {
+      setTelegramError(t('error_invalid_telegram'));
+    } else {
+      setTelegramError('');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Final validation before submit
+    const finalUrl = formatUrl(urlInput.trim());
+    if (!validateUrl(finalUrl)) {
+      setUrlError(t('error_invalid_url'));
+      return;
+    }
+    if (!validateTelegram(telegramInput)) {
+      setTelegramError(t('error_invalid_telegram'));
+      return;
+    }
+
     setSubmitting(true);
 
     try {
       const formData = new FormData(e.currentTarget);
       
       const data = {
-        company: formData.get('company'),
-        business_type: formData.get('business_type'),
-        telegram: formData.get('telegram'),
-        regions: formData.getAll('region'),
-        region_detail: formData.get('region_detail'),
-        need: formData.get('need'),
-        need_detail: formData.get('need_detail'),
+        landingUrl: finalUrl,
+        telegram: telegramInput.trim(),
+        primarySolution: formData.get('primarySolution'),
+        primarySolutionOther: formData.get('primarySolutionOther'),
+        campaignStage: formData.get('campaignStage'),
+        dailyAdSpend: formData.get('dailyAdSpend'),
+        targetRegions: formData.getAll('targetRegions'),
+        targetRegionsOther: formData.get('targetRegionsOther'),
+        additionalNotes: formData.get('additionalNotes'),
         locale: locale,
         source_info: {
           referrer: document.referrer,
@@ -53,8 +127,8 @@ export default function ContactForm() {
         (window as any).gtag('event', 'submit_form', {
           'event_category': 'Contact',
           'event_label': 'Contact Form Submission',
-          'business_type': data.business_type,
-          'region': data.regions.join(',')
+          'primarySolution': data.primarySolution,
+          'targetRegions': data.targetRegions.join(',')
         });
       }
 
@@ -69,133 +143,196 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="h-full flex flex-col items-center justify-center text-center py-12 bg-slate-900/50 rounded-2xl border border-white/10">
+      <div className="h-full flex flex-col items-center justify-center text-center py-12 bg-slate-900/50 rounded-2xl border border-white/20 px-8">
         <CheckCircle2 className="w-16 h-16 text-brand mb-6" />
-        <h3 className="text-2xl font-bold mb-2">{t('success')}</h3>
-        <p className="text-gray-400">We will get back to you shortly.</p>
+        <p className="text-slate-300 leading-relaxed max-w-2xl">{t('success')}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-slate-900/50 p-8 rounded-2xl border border-white/10">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_company')}</label>
-          <input type="text" name="company" required className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_business')}</label>
-              <select name="business_type" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
-                  <option value="real_money">{t('type_real_money')}</option>
-                  <option value="live_entertainment">{t('type_live_entertainment')}</option>
-                  <option value="drama_novel">{t('type_drama_novel')}</option>
-                  <option value="finance_loan">{t('type_finance_loan')}</option>
-                  <option value="tools">{t('type_tools')}</option>
-                  <option value="other">{t('type_other')}</option>
-              </select>
-          </div>
-          <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_telegram')}</label>
-              <input type="text" name="telegram" required placeholder="@username" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_region')}</label>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="sea" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_sea')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="india" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_india')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="latam" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_latam')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="mena" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_mena')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="russia" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_russia')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="jp_kr" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_jp_kr')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="africa" className="accent-blue-500 w-4 h-4" />
-                  <span className="text-sm text-white">{t('region_africa')}</span>
-              </label>
-              <label className="flex items-center gap-2 p-3 rounded-lg border border-white/10 bg-slate-950 cursor-pointer hover:border-blue-500/50 transition-colors">
-                  <input type="checkbox" name="region" value="other" className="accent-blue-500 w-4 h-4" onChange={(e) => setShowOtherRegion(e.target.checked)} />
-                  <span className="text-sm text-white">{t('region_other')}</span>
-              </label>
-          </div>
-          {showOtherRegion && (
-            <div className="mt-4 animate-in fade-in slide-in-from-top-2">
-              <input 
-                type="text" 
-                name="region_detail" 
-                placeholder={t('region_other_placeholder')} 
-                className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                required 
-              />
-            </div>
-          )}
-        </div>
+    <div className="bg-slate-900/40 p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-sm">
+      <form onSubmit={handleSubmit} className="space-y-10">
         
-        <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">{t('form_need')}</label>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'pwa' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
-                  <input type="radio" name="need" value="pwa" className="accent-blue-500" checked={selectedNeed === 'pwa'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm text-white">{t('need_pwa')}</span>
-              </label>
-              <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'w2a' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
-                  <input type="radio" name="need" value="w2a" className="accent-blue-500" checked={selectedNeed === 'w2a'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm text-white">{t('need_w2a')}</span>
-              </label>
-              <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'both' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
-                  <input type="radio" name="need" value="both" className="accent-blue-500" checked={selectedNeed === 'both'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm text-white">{t('need_both')}</span>
-              </label>
-              <label className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedNeed === 'other' ? 'border-blue-500 bg-blue-500/10' : 'border-white/10 bg-slate-950 hover:border-blue-500/50'}`}>
-                  <input type="radio" name="need" value="other" className="accent-blue-500" checked={selectedNeed === 'other'} onChange={(e) => setSelectedNeed(e.target.value)} />
-                  <span className="text-sm text-white">{t('need_other')}</span>
-              </label>
+        {/* Section 1: Core Info */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
+            <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">1</div>
+            <h4 className="text-lg font-semibold text-white">基础信息</h4>
           </div>
-          {selectedNeed === 'other' && (
-            <div className="mt-4 animate-in fade-in slide-in-from-top-2">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_landing_url')} <span className="text-brand">*</span></label>
+              <input 
+                type="url" 
+                name="landingUrl" 
+                required 
+                placeholder={t('landing_url_placeholder')}
+                value={urlInput}
+                onChange={(e) => {
+                  setUrlInput(e.target.value);
+                  setUrlError('');
+                }}
+                onBlur={handleUrlBlur}
+                className={`w-full bg-slate-950/50 border ${urlError ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-brand'} rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-brand/50 transition-all`} 
+              />
+              {urlError && <p className="text-red-400 text-xs mt-2 ml-1">{urlError}</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_telegram')} <span className="text-brand">*</span></label>
               <input 
                 type="text" 
-                name="need_detail" 
-                placeholder={t('need_other_placeholder')} 
-                className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                name="telegram" 
                 required 
+                placeholder={t('telegram_placeholder')}
+                value={telegramInput}
+                onChange={(e) => {
+                  setTelegramInput(e.target.value);
+                  setTelegramError('');
+                }}
+                onBlur={handleTelegramBlur}
+                className={`w-full bg-slate-950/50 border ${telegramError ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-brand'} rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-brand/50 transition-all`} 
               />
+              {telegramError ? (
+                <p className="text-red-400 text-xs mt-2 ml-1">{telegramError}</p>
+              ) : (
+                <p className="text-slate-500 text-xs mt-2 ml-1">{t('telegram_helper')}</p>
+              )}
             </div>
-          )}
+          </div>
         </div>
 
-        <button type="submit" disabled={submitting} className="w-full bg-brand hover:bg-brand-hover text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(0,194,80,0.3)] disabled:opacity-50 disabled:cursor-not-allowed">
-          {submitting ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-              {t('sending')}
-            </>
-          ) : (
-            <>
-              <Send size={18} /> {t('submit')}
-            </>
-          )}
-        </button>
+        {/* Section 2: Requirements */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
+            <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">2</div>
+            <h4 className="text-lg font-semibold text-white">业务需求</h4>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-4">{t('form_primary_solution')} <span className="text-brand">*</span></label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'pwa_distribution' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
+                    <input type="radio" name="primarySolution" value="pwa_distribution" className="accent-brand w-4 h-4" checked={selectedSolution === 'pwa_distribution'} onChange={(e) => setSelectedSolution(e.target.value)} required />
+                    <span className="text-sm text-slate-200">{t('solution_pwa')}</span>
+                </label>
+                <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'apk_distribution' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
+                    <input type="radio" name="primarySolution" value="apk_distribution" className="accent-brand w-4 h-4" checked={selectedSolution === 'apk_distribution'} onChange={(e) => setSelectedSolution(e.target.value)} required />
+                    <span className="text-sm text-slate-200">{t('solution_apk')}</span>
+                </label>
+                <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'ad_platform_approval' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
+                    <input type="radio" name="primarySolution" value="ad_platform_approval" className="accent-brand w-4 h-4" checked={selectedSolution === 'ad_platform_approval'} onChange={(e) => setSelectedSolution(e.target.value)} required />
+                    <span className="text-sm text-slate-200">{t('solution_ad_approval')}</span>
+                </label>
+                <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'other' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
+                    <input type="radio" name="primarySolution" value="other" className="accent-brand w-4 h-4" checked={selectedSolution === 'other'} onChange={(e) => setSelectedSolution(e.target.value)} required />
+                    <span className="text-sm text-slate-200">{t('solution_other')}</span>
+                </label>
+            </div>
+            {selectedSolution === 'other' && (
+              <div className="mt-3 animate-in fade-in slide-in-from-top-2">
+                <input 
+                  type="text" 
+                  name="primarySolutionOther" 
+                  placeholder={t('solution_other')} 
+                  className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-3 text-sm text-white focus:outline-none focus:border-brand transition-colors"
+                  required 
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+            <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_campaign_stage')} <span className="text-brand">*</span></label>
+                <select name="campaignStage" required className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
+                    <option value="" disabled selected className="text-slate-500">-- Select --</option>
+                    <option value="new_product_testing">{t('stage_new')}</option>
+                    <option value="h5_ready_to_launch">{t('stage_ready')}</option>
+                    <option value="running_ads_improve_conversion">{t('stage_running_improve')}</option>
+                    <option value="running_ads_attribution_issue">{t('stage_running_issue')}</option>
+                    <option value="replace_or_optimize_existing_solution">{t('stage_replace')}</option>
+                </select>
+            </div>
+            <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_ad_spend')} <span className="text-brand">*</span></label>
+                <select name="dailyAdSpend" required className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
+                    <option value="" disabled selected className="text-slate-500">-- Select --</option>
+                    <option value="not_started">{t('spend_none')}</option>
+                    <option value="lt_100">{t('spend_lt100')}</option>
+                    <option value="100_500">{t('spend_100_500')}</option>
+                    <option value="500_2000">{t('spend_500_2000')}</option>
+                    <option value="2000_10000">{t('spend_2000_10000')}</option>
+                    <option value="gt_10000">{t('spend_gt10000')}</option>
+                </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 3: Details */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
+            <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">3</div>
+            <h4 className="text-lg font-semibold text-white">附加信息</h4>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-4">{t('form_target_regions')} <span className="text-brand">*</span></label>
+            <div className="flex flex-wrap gap-2 md:gap-3">
+                {['sea', 'india', 'latam', 'mena', 'jp_kr', 'africa', 'eu_us', 'other'].map((region) => (
+                  <label key={region} className="relative group cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      name="targetRegions" 
+                      value={region === 'mena' ? 'middle_east' : region} 
+                      className="peer sr-only" 
+                      onChange={(e) => region === 'other' && setShowOtherRegion(e.target.checked)} 
+                    />
+                    <div className="px-4 py-2.5 rounded-full border border-white/10 bg-slate-950/50 text-sm text-slate-400 peer-checked:bg-brand/10 peer-checked:border-brand peer-checked:text-brand hover:border-white/30 transition-all select-none">
+                      {t(`region_${region}`)}
+                    </div>
+                  </label>
+                ))}
+            </div>
+            {showOtherRegion && (
+              <div className="mt-4 animate-in fade-in slide-in-from-top-2">
+                <input 
+                  type="text" 
+                  name="targetRegionsOther" 
+                  placeholder={t('region_other')} 
+                  className="w-full md:w-1/2 bg-slate-950/50 border border-white/10 rounded-xl px-5 py-3 text-sm text-white focus:outline-none focus:border-brand transition-colors"
+                  required={showOtherRegion}
+                />
+              </div>
+            )}
+          </div>
+          
+          <div className="pt-2">
+            <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_additional_notes')}</label>
+            <textarea 
+              name="additionalNotes" 
+              placeholder={t('notes_placeholder')} 
+              rows={3}
+              className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-white/5">
+          <button type="submit" disabled={submitting || !!urlError || !!telegramError} className="w-full md:w-auto md:min-w-[280px] mx-auto bg-brand hover:bg-brand-hover text-white font-bold py-4 px-8 rounded-full flex items-center justify-center gap-3 transition-all hover:shadow-[0_0_30px_rgba(0,194,80,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none">
+            {submitting ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+                {t('sending')}
+              </>
+            ) : (
+              <>
+                <Send size={18} /> {t('submit')}
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -22,11 +22,11 @@ export default function Comparison() {
           <table className="w-full max-w-4xl mx-auto border-collapse">
             <thead>
               <tr>
-                <th className="p-4 text-left text-gray-400 w-1/3"></th>
+                <th className="p-4 text-left text-slate-300 w-1/3"></th>
                 <th className="p-4 text-center text-xl font-bold text-brand bg-slate-800/50 rounded-t-xl w-1/3 border-b border-brand/20">
                 {t('our_solution')}
               </th>
-                <th className="p-4 text-center text-xl font-bold text-gray-400 w-1/3">
+                <th className="p-4 text-center text-xl font-bold text-slate-400 w-1/3">
                   {t('google_play')}
                 </th>
               </tr>

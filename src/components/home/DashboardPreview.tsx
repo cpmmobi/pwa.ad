@@ -1,12 +1,14 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import SectionTitle from '../ui/SectionTitle';
 import { Eye } from 'lucide-react';
 
 export default function DashboardPreview() {
   const t = useTranslations('Dashboard');
+  const locale = useLocale();
+  const imageSrc = locale === 'en' ? '/dashboard-en.png' : '/dashboard.png';
 
   return (
     <section className="pt-20 pb-0 bg-slate-950 overflow-hidden relative z-10">
@@ -14,7 +16,8 @@ export default function DashboardPreview() {
         {/* Title removed as requested */}
         
         <div className="max-w-6xl mx-auto relative group perspective-1000 -mb-24">
-          <Link href="/contact" className="block relative z-10">
+          {/* Preview Image with Link */}
+          <Link href="https://console.pwa.ad/login" target="_blank" className="block relative z-10">
             {/* Tablet/Device Mockup Container */}
             <div className="relative rounded-t-[2.5rem] rounded-b-[1rem] border-[14px] border-b-0 border-slate-700 bg-slate-900 shadow-[0_-20px_50px_rgba(0,194,80,0.15)] ring-1 ring-white/10 transition-transform duration-500 ease-out group-hover:translate-y-[-10px] group-hover:shadow-[0_-30px_80px_rgba(0,194,80,0.3)]">
               
@@ -29,12 +32,12 @@ export default function DashboardPreview() {
                 {/* User needs to place 'dashboard.png' in public folder */}
                 <div className="relative bg-slate-800 flex items-center justify-center text-slate-600 min-h-[300px]">
                   <img 
-                    src="/dashboard.png" 
+                    src={imageSrc} 
                     alt="PWA Dashboard" 
                     className="w-full h-auto block"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.innerHTML = '<div class="flex flex-col items-center gap-4 py-20"><p>请将后台截图命名为 dashboard.png 并放入 public 目录</p><div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900"></div></div>';
+                      e.currentTarget.parentElement!.innerHTML = `<div class="flex flex-col items-center gap-4 py-20"><p>请将后台截图命名为 ${imageSrc.replace('/', '')} 并放入 public 目录</p><div class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900"></div></div>`;
                     }}
                   />
                 </div>

@@ -36,7 +36,7 @@ export default function FAQPage() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <SectionTitle>{t('title')}</SectionTitle>
-          <p className="text-gray-400 mt-4 text-lg max-w-2xl mx-auto">{t('subtitle')}</p>
+          <p className="text-slate-300 mt-4 text-lg max-w-2xl mx-auto">{t('subtitle')}</p>
         </div>
 
         <div className="max-w-3xl mx-auto space-y-4">

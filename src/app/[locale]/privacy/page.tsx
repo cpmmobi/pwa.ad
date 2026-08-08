@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">{t('privacy_title')}</h1>
           </div>
-          <div className="bg-slate-900/50 p-8 rounded-2xl border border-white/10 text-gray-300 leading-relaxed whitespace-pre-wrap">
+          <div className="bg-slate-900/50 p-8 rounded-2xl border border-white/20 text-gray-300 leading-relaxed whitespace-pre-wrap">
             {t('privacy_content')}
           </div>
         </div>

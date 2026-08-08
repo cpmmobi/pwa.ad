@@ -10,13 +10,13 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
           <div className="max-w-sm">
             <div className="text-xl font-bold text-white mb-4">PWA<span className="text-brand">.ad</span></div>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-slate-300 text-sm leading-relaxed">
               {t('desc')}
             </p>
           </div>
           <div>
             <h3 className="text-white font-semibold mb-4">{t('service_support')}</h3>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-slate-300">
               <li><Link href="/faq" className="hover:text-brand transition-colors">{t('faq')}</Link></li>
               <li><Link href="/contact" className="hover:text-brand transition-colors">{t('contact_us')}</Link></li>
               <li><Link href="/terms" className="hover:text-brand transition-colors">{t('terms_of_service')}</Link></li>
@@ -25,7 +25,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-500 text-sm">
+            <div className="text-slate-400 text-sm">
                 {t('copyright', {year: new Date().getFullYear()})}
             </div>
         </div>

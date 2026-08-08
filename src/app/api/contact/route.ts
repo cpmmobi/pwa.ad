@@ -1,37 +1,57 @@
 import { NextResponse } from 'next/server';
 
 // Mappings for Chinese translations
-const BusinessTypeMap: Record<string, string> = {
-  'real_money': '真金游戏',
-  'live_entertainment': '娱乐直播',
-  'drama_novel': '短剧小说',
-  'finance_loan': '金融贷款',
-  'tools': '工具应用',
-  'other': '其他类型'
+const SolutionMap: Record<string, string> = {
+  'pwa_distribution': '封装为 PWA',
+  'apk_distribution': '封装为 APK',
+  'ad_platform_approval': '广告过审方案',
+  'other': '其他'
+};
+
+const StageMap: Record<string, string> = {
+  'new_product_testing': '测试新产品',
+  'h5_ready_to_launch': 'H5就绪准备投放',
+  'running_ads_improve_conversion': '投放中，需提升转化',
+  'running_ads_attribution_issue': '投放中，归因不理想',
+  'replace_or_optimize_existing_solution': '替换或优化现有方案'
+};
+
+const SpendMap: Record<string, string> = {
+  'not_started': '尚未开始',
+  'lt_100': '<$100/天',
+  '100_500': '$100-$500/天',
+  '500_2000': '$500-$2,000/天',
+  '2000_10000': '$2,000-$10,000/天',
+  'gt_10000': '>$10,000/天'
 };
 
 const RegionMap: Record<string, string> = {
   'sea': '东南亚',
   'india': '印度',
   'latam': '拉美',
-  'mena': '中东',
-  'russia': '俄罗斯',
+  'middle_east': '中东',
   'jp_kr': '日韩',
   'africa': '非洲',
-  'other': '其他'
-};
-
-const NeedMap: Record<string, string> = {
-  'pwa': 'PWA 封装',
-  'w2a': 'W2A 封装',
-  'both': '我都要',
+  'eu_us': '欧美',
   'other': '其他'
 };
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { company, business_type, telegram, regions, region_detail, need, need_detail, source_info, locale } = data;
+    const { 
+      landingUrl, 
+      telegram, 
+      primarySolution, 
+      primarySolutionOther,
+      campaignStage,
+      dailyAdSpend,
+      targetRegions, 
+      targetRegionsOther, 
+      additionalNotes,
+      source_info, 
+      locale 
+    } = data;
 
     // Get IP address
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
@@ -83,23 +103,27 @@ export async function POST(request: Request) {
     }
 
     // Format Chinese Message
-    const businessTypeCN = BusinessTypeMap[business_type as string] || business_type;
+    const solutionCN = SolutionMap[primarySolution as string] || primarySolution;
+    const solutionDetailStr = primarySolutionOther ? ` (${primarySolutionOther})` : '';
     
-    const regionsList = Array.isArray(regions) ? regions : [regions];
+    const stageCN = StageMap[campaignStage as string] || campaignStage;
+    const spendCN = SpendMap[dailyAdSpend as string] || dailyAdSpend;
+
+    const regionsList = Array.isArray(targetRegions) ? targetRegions : [targetRegions];
     const regionsCN = regionsList.map((r: string) => RegionMap[r] || r).join(', ');
-    const regionDetailStr = region_detail ? ` (${region_detail})` : '';
+    const regionDetailStr = targetRegionsOther ? ` (${targetRegionsOther})` : '';
     
-    const needCN = NeedMap[need as string] || need;
-    const needDetailStr = need_detail ? ` (${need_detail})` : '';
+    const notesStr = additionalNotes ? `\n📝 补充说明: ${additionalNotes}` : '';
 
     const lang = locale === 'zh' ? '中文' : (locale === 'en' ? 'English' : locale);
 
     const text = `🎯 来新客户线索啦！！请在4小时内回复
-🏢 业务名称/链接: ${company}
-💼 业务类型: ${businessTypeCN}
+🔗 落地页链接: ${landingUrl}
 📱 Telegram: ${telegram}
-🌍 目标区域: ${regionsCN}${regionDetailStr}
-💡 需求类型: ${needCN}${needDetailStr}
+💡 需求方案: ${solutionCN}${solutionDetailStr}
+📊 投放阶段: ${stageCN}
+💰 日均消耗: ${spendCN}
+🌍 目标区域: ${regionsCN}${regionDetailStr}${notesStr}
 --------------------------------
 🗣️ 网页语言: ${lang}
 🌐 浏览器语言: ${source_info?.browserLanguage || 'Unknown'}

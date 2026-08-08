@@ -13,7 +13,7 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-white/10 rounded-xl bg-slate-900/50 overflow-hidden transition-all hover:border-brand/30">
+    <div className="border border-white/20 rounded-xl bg-slate-900/50 overflow-hidden transition-all hover:border-brand/30">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-6 text-left group"
@@ -21,7 +21,7 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
         <span className={`text-lg font-medium transition-colors ${isOpen ? 'text-brand' : 'text-white group-hover:text-brand/80'}`}>
           {question}
         </span>
-        <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-brand/20 text-brand' : 'bg-white/5 text-gray-400 group-hover:text-white'}`}>
+        <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-brand/20 text-brand' : 'bg-white/5 text-slate-300 group-hover:text-white'}`}>
           {isOpen ? <Minus size={20} /> : <Plus size={20} />}
         </div>
       </button>
@@ -34,7 +34,7 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="px-6 pb-6 text-gray-400 leading-relaxed border-t border-white/5 pt-4">
+            <div className="px-6 pb-6 text-slate-300 leading-relaxed border-t border-white/5 pt-4">
               {answer}
             </div>
           </motion.div>
