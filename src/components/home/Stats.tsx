@@ -43,7 +43,9 @@ export default function Stats() {
   const t = useTranslations('Stats');
 
   // Calculate dynamic count based on current date
-  const dynamicCount = useMemo(() => {
+  const [dynamicCount, setDynamicCount] = useState(39324202); // Fallback static count
+
+  useEffect(() => {
     // Base date: 2024-01-01
     const baseDate = new Date('2024-01-01').getTime();
     const baseCount = 39324202; // Base count
@@ -55,7 +57,8 @@ export default function Stats() {
     // Add some random variance based on hour of day to simulate real-time
     const hourVariance = Math.floor((new Date().getHours() / 24) * dailyGrowth);
     
-    return baseCount + (daysDiff * dailyGrowth) + hourVariance;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDynamicCount(baseCount + (daysDiff * dailyGrowth) + hourVariance);
   }, []);
 
   return (

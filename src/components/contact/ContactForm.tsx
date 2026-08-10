@@ -123,8 +123,8 @@ export default function ContactForm() {
       }
 
       // Trigger GA Event
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'submit_form', {
+      if (typeof window !== 'undefined' && ('gtag' in window)) {
+        (window as { gtag?: (event: string, action: string, data: Record<string, unknown>) => void }).gtag?.('event', 'submit_form', {
           'event_category': 'Contact',
           'event_label': 'Contact Form Submission',
           'primarySolution': data.primarySolution,

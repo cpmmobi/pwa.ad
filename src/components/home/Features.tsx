@@ -164,7 +164,7 @@ export default function Features() {
                             <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10 z-10"></div>
                             <div className="relative w-full h-full min-h-[300px]">
                                 <Image 
-                                    src={feature.image as any} 
+                                    src={feature.image} 
                                     alt={feature.title} 
                                     fill 
                                     className="object-cover hover:scale-105 transition-transform duration-700" 
