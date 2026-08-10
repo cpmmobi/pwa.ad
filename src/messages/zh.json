@@ -130,8 +130,11 @@
     "a9": "是的，最低充值金额为 $100。这主要是为了确保每位客户都能获得高质量的技术支持与服务器资源。我们致力于服务长期稳定的合作伙伴，小额充值可能会导致频繁的支付操作与管理成本，希望您能理解。"
   },
   "Contact": {
-    "title": "获取免费 PWA/APK 测试包",
+    "title": "获取免费 PWA/APK 测试链接",
     "subtitle": "提交您的产品链接，我们将为您创建测试项目，并通过 Telegram 联系您确认配置。",
+    "step_1_title": "基础信息",
+    "step_2_title": "业务需求",
+    "step_3_title": "附加信息",
     "form_landing_url": "产品链接",
     "landing_url_placeholder": "https://your-domain.com/landing-page",
     "form_telegram": "Telegram",

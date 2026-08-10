@@ -131,7 +131,10 @@
   },
   "Contact": {
     "title": "Get a Free PWA/APK Test Build",
-    "subtitle": "Submit your product URL. We’ll create a test project and contact you on Telegram to confirm the setup.",
+    "subtitle": "Submit your product URL. We'll create a test project and contact you on Telegram to confirm the setup.",
+    "step_1_title": "Basic Info",
+    "step_2_title": "Business Needs",
+    "step_3_title": "Additional Notes",
     "form_landing_url": "Product URL",
     "landing_url_placeholder": "https://your-domain.com/landing-page",
     "form_telegram": "Telegram",

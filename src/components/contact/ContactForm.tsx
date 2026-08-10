@@ -158,7 +158,7 @@ export default function ContactForm() {
         <div className="space-y-6">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
             <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">1</div>
-            <h4 className="text-lg font-semibold text-white">基础信息</h4>
+            <h4 className="text-lg font-semibold text-white">{t('step_1_title')}</h4>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -203,11 +203,11 @@ export default function ContactForm() {
           </div>
         </div>
 
-        {/* Section 2: Requirements */}
+        {/* Section 2: Business Needs */}
         <div className="space-y-6">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
             <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">2</div>
-            <h4 className="text-lg font-semibold text-white">业务需求</h4>
+            <h4 className="text-lg font-semibold text-white">{t('step_2_title')}</h4>
           </div>
 
           <div>
@@ -274,7 +274,7 @@ export default function ContactForm() {
         <div className="space-y-6">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
             <div className="w-8 h-8 rounded-full bg-brand/20 text-brand flex items-center justify-center font-bold text-sm">3</div>
-            <h4 className="text-lg font-semibold text-white">附加信息</h4>
+            <h4 className="text-lg font-semibold text-white">{t('step_3_title')}</h4>
           </div>
 
           <div>
