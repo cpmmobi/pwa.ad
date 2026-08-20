@@ -1,39 +1,56 @@
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import {getMessages, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import Script from 'next/script';
+import type {Metadata} from 'next';
 import {routing} from '@/i18n/routing';
 import "../globals.css";
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import AttributionTracker from '@/components/AttributionTracker';
 
-export const metadata = {
-  title: 'PWA/APK 智能封装 - 智能斗篷过审 & 精准归因解决方案 | PWA.ad',
-  description: 'PWA.ad 提供一站式 PWA/APK 封装、智能斗篷过审、精准广告归因服务。无需上架 Google Play，完美解决真金/直播/小说等敏感行业投放受限难题，让广告转化数据清晰可见。',
-  keywords: ['PWA封装', 'APK封装', '智能斗篷', '广告归因', 'W2A', 'Google Play过审', 'Facebook投放', '真金游戏推广', 'PWA.ad'],
-  authors: [{ name: 'PWA.ad Team' }],
-  openGraph: {
-    title: 'PWA/APK 智能封装 - 智能斗篷过审 & 精准归因解决方案 | PWA.ad',
-    description: '无需上架 Google Play，一键将您的网页端产品封装为 APP。完美解决投放受限与归因丢失难题。',
-    type: 'website',
-    url: 'https://pwa.ad',
-    siteName: 'PWA.ad',
-    images: [
-      {
-        url: 'https://pwa.ad/og-image.png', // Assuming you'll add an OG image
-        width: 1200,
-        height: 630,
-        alt: 'PWA.ad Solution Preview',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'PWA/APK 智能封装 - 智能斗篷过审 & 精准归因解决方案 | PWA.ad',
-    description: '无需上架 Google Play，一键将您的网页端产品封装为 APP。完美解决投放受限与归因丢失难题。',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{locale: string}>;
+}): Promise<Metadata> {
+  const {locale} = await params;
+  const t = await getTranslations({locale, namespace: 'HomePage'});
+  const title = t('title');
+  const description = t('subtitle');
+
+  return {
+    metadataBase: new URL('https://pwa.ad'),
+    title,
+    description,
+    keywords: locale === 'zh'
+      ? ['PWA封装', 'APK封装', '广告归因', 'W2A', 'PWA.ad']
+      : ['PWA wrapping', 'APK wrapping', 'ad attribution', 'W2A', 'PWA.ad'],
+    authors: [{ name: 'PWA.ad Team' }],
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: `https://pwa.ad/${locale}`,
+      siteName: 'PWA.ad',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: 'PWA.ad',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -69,6 +86,7 @@ export default async function LocaleLayout({
             gtag('config', 'G-JFTG28MSCD');
           `}
         </Script>
+        <AttributionTracker />
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main className="min-h-screen pt-16">

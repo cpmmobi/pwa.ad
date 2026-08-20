@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { Mail } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import ContactForm from '@/components/contact/ContactForm';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -41,7 +40,7 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-2">100% 隐私保护</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{t('trust_title')}</h3>
                   <div className="text-sm text-slate-400 leading-relaxed">
                       {t('response_time_text')}
                   </div>
@@ -50,15 +49,15 @@ export default function ContactPage() {
                 <div className="flex flex-col gap-3 text-sm text-slate-300 md:pl-8 md:border-l border-white/10">
                   <div className="flex items-center justify-center md:justify-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
-                    您的业务数据将严格保密
+                    {t('trust_point1')}
                   </div>
                   <div className="flex items-center justify-center md:justify-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
-                    技术专家 1v1 专属对接
+                    {t('trust_point2')}
                   </div>
                   <div className="flex items-center justify-center md:justify-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
-                    最快 4 小时内完成部署
+                    {t('trust_point3')}
                   </div>
                 </div>
             </div>

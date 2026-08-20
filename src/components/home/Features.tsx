@@ -1,78 +1,61 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { BellRing, BarChart3, ShieldCheck, Box, LayoutTemplate, Coins, CheckCircle2 } from 'lucide-react';
+import { BellRing, Box, LayoutTemplate, Coins, CheckCircle2 } from 'lucide-react';
 import SectionTitle from '../ui/SectionTitle';
 import { motion } from 'framer-motion';
 
 export default function Features() {
   const t = useTranslations('Features');
+  const locale = useLocale();
 
   const features = [
     {
-      id: 'landing',
-      icon: <ShieldCheck className="w-10 h-10 text-brand" />,
-      title: t('landing_title'),
-      desc: t('landing_desc'),
-      detailTitle: t('landing_detail_title'),
-      detailDesc: t('landing_detail_desc'),
-      points: [t('landing_point1'), t('landing_point2'), t('landing_point3')],
-      image: "/feature-landing.png"
-    },
-    {
-      id: 'attribution',
-      icon: <BarChart3 className="w-10 h-10 text-brand" />,
-      title: t('attribution_title'),
-      desc: t('attribution_desc'),
-      detailTitle: t('attribution_detail_title'),
-      detailDesc: t('attribution_detail_desc'),
-      points: [t('attribution_point1'), t('attribution_point2'), t('attribution_point3')],
-      image: "/feature-attribution.png"
-    },
-    {
-      id: 'cloaking',
+      id: 'push',
       icon: <BellRing className="w-10 h-10 text-brand" />,
       title: t('cloaking_title'),
       desc: t('cloaking_desc'),
-      detailTitle: t('cloaking_detail_title'),
       detailDesc: t('cloaking_detail_desc'),
       points: [t('cloaking_point1'), t('cloaking_point2'), t('cloaking_point3')],
-      image: "/feature-push.png"
+      image: "/feature-push.png",
+      imageFit: "object-cover",
     },
     {
-      id: 'commission',
+      id: 'apk',
       icon: <Box className="w-10 h-10 text-brand" />,
       title: t('commission_title'),
       desc: t('commission_desc'),
-      detailTitle: t('commission_detail_title'),
       detailDesc: t('commission_detail_desc'),
       points: [t('commission_point1'), t('commission_point2'), t('commission_point3')],
-      image: "/feature-w2a.png"
+      image: "/feature-w2a.png",
+      imageFit: "object-cover",
     },
     {
-      id: 'pixel',
+      id: 'templates',
       icon: <LayoutTemplate className="w-10 h-10 text-brand" />,
       title: t('pixel_title'),
       desc: t('pixel_desc'),
-      detailTitle: t('pixel_detail_title'),
       detailDesc: t('pixel_detail_desc'),
       points: [t('pixel_point1'), t('pixel_point2'), t('pixel_point3')],
-      image: "/feature-landing-page.png"
+      image: locale === 'en' ? "/feature-install-en.png" : "/feature-install-zh.png",
+      imageFit: "object-cover object-center",
     },
     {
       id: 'price',
       icon: <Coins className="w-10 h-10 text-brand" />,
       title: t('price_title'),
       desc: t('price_desc'),
-      detailTitle: t('price_detail_title'),
       detailDesc: t('price_detail_desc'),
       points: [t('price_point1'), t('price_point2'), t('price_point3')],
-      image: "/feature-price.png"
+      image: "/feature-price.png",
+      imageFit: "object-cover",
     }
   ];
 
-  const numberMap = ['一', '二', '三', '四', '五', '六'];
+  const numberMap = locale === 'zh'
+    ? ['一', '二', '三', '四']
+    : ['01', '02', '03', '04'];
 
   const scrollToFeature = (id: string) => {
     const element = document.getElementById(`feature-${id}`);
@@ -103,7 +86,7 @@ export default function Features() {
             <button
               key={feature.id}
               onClick={() => scrollToFeature(feature.id)}
-              className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)] p-6 rounded-xl border border-white/5 bg-slate-800/50 hover:bg-slate-800 hover:border-brand/50 transition-all text-left group relative overflow-hidden"
+              className="w-full md:w-[calc(50%-1rem)] p-6 rounded-xl border border-white/5 bg-slate-800/50 hover:bg-slate-800 hover:border-brand/50 transition-all text-left group relative overflow-hidden"
             >
               <div className="mb-4 w-16 h-16 rounded-lg flex items-center justify-center transition-colors bg-slate-900 text-brand group-hover:bg-brand/20">
                 <div className="text-brand">
@@ -140,7 +123,7 @@ export default function Features() {
                                     <div className="w-1 h-4 bg-brand -skew-x-12 rounded-[1px]"></div>
                                 </div>
                                 <div className="text-brand font-black tracking-[0.2em] text-lg md:text-xl uppercase">
-                                    {t('feature_prefix')}{numberMap[index]}
+                                    {t('feature_prefix')}{locale === 'zh' ? numberMap[index] : ` ${numberMap[index]}`}
                                 </div>
                             </div>
                             <h3 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 text-white leading-tight tracking-tight drop-shadow-2xl">
@@ -161,13 +144,12 @@ export default function Features() {
 
                         {/* Image Display */}
                         <div className={`bg-slate-900 relative min-h-[300px] md:min-h-full order-1 flex items-center justify-center overflow-hidden ${index % 2 === 0 ? 'md:order-2 border-l border-white/5' : 'md:order-1 border-r border-white/5'}`}>
-                            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10 z-10"></div>
                             <div className="relative w-full h-full min-h-[300px]">
                                 <Image 
                                     src={feature.image} 
                                     alt={feature.title} 
                                     fill 
-                                    className="object-cover hover:scale-105 transition-transform duration-700" 
+                                    className={`${feature.imageFit} hover:scale-105 transition-transform duration-700`} 
                                 />
                             </div>
                         </div>

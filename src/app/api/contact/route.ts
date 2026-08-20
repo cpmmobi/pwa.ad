@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 const SolutionMap: Record<string, string> = {
   'pwa_distribution': '封装为 PWA',
   'apk_distribution': '封装为 APK',
-  'ad_platform_approval': '广告过审方案',
   'other': '其他'
 };
 
@@ -36,12 +35,30 @@ const RegionMap: Record<string, string> = {
   'other': '其他'
 };
 
+type Attribution = {
+  clickIds?: Record<string, string>;
+  utm?: Record<string, string>;
+  landingPage?: string;
+  referrer?: string;
+  firstSeenAt?: string;
+};
+
+const CLICK_ID_LABELS: Record<string, string> = {
+  gclid: 'Google Ads',
+  gbraid: 'Google Ads',
+  wbraid: 'Google Ads',
+  fbclid: 'Meta',
+  ttclid: 'TikTok',
+  msclkid: 'Microsoft Ads',
+};
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
     const { 
       landingUrl, 
       telegram, 
+      email,
       primarySolution, 
       primarySolutionOther,
       campaignStage,
@@ -49,6 +66,7 @@ export async function POST(request: Request) {
       targetRegions, 
       targetRegionsOther, 
       additionalNotes,
+      attribution,
       source_info, 
       locale 
     } = data;
@@ -58,49 +76,37 @@ export async function POST(request: Request) {
                request.headers.get('x-real-ip') || 
                'Unknown IP';
 
-    // Parse Source Info
+    // Attribution is captured on the landing page and persisted client-side,
+    // because ad click ids are dropped as soon as the visitor navigates away.
+    const attr = (attribution ?? {}) as Attribution;
+    const clickIds = attr.clickIds ?? {};
+    const utm = attr.utm ?? {};
+
     let sourceText = '直接访问';
-    let keywordInfo = '';
-    
-    if (source_info?.referrer) {
+
+    if (attr.referrer) {
       try {
-        const referrerUrl = new URL(source_info.referrer);
-        if (referrerUrl.hostname !== new URL(source_info.url).hostname) {
-           sourceText = `引荐访问 (${referrerUrl.hostname})`;
-        }
-      } catch (e) {
-        sourceText = `引荐访问 (${source_info.referrer})`;
+        sourceText = `引荐访问 (${new URL(attr.referrer).hostname})`;
+      } catch {
+        sourceText = `引荐访问 (${attr.referrer})`;
       }
     }
 
-    if (source_info?.url) {
-      try {
-        const urlObj = new URL(source_info.url);
-        const params = urlObj.searchParams;
-        
-        // Check for common ad tracking parameters
-        if (params.has('gclid') || params.has('fbclid')) {
-          sourceText = '付费投放';
-        }
-        
-        // Check for UTM parameters
-        const utmSource = params.get('utm_source');
-        const utmMedium = params.get('utm_medium');
-        const utmTerm = params.get('utm_term'); // Keyword
-        
-        if (utmSource) {
-          sourceText = `付费投放 (${utmSource} / ${utmMedium || 'unknown'})`;
-        }
-        
-        if (utmTerm) {
-          keywordInfo = `\n🔑 搜索关键词: ${utmTerm}`;
-        } else if (params.get('keyword') || params.get('q')) {
-             keywordInfo = `\n🔑 搜索关键词: ${params.get('keyword') || params.get('q')}`;
-        }
-      } catch (e) {
-        // URL parse error, ignore
-      }
+    const clickIdEntries = Object.entries(clickIds);
+    if (utm.utm_source) {
+      sourceText = `付费投放 (${utm.utm_source} / ${utm.utm_medium || 'unknown'})`;
+    } else if (clickIdEntries.length > 0) {
+      sourceText = `付费投放 (${CLICK_ID_LABELS[clickIdEntries[0][0]] || clickIdEntries[0][0]})`;
     }
+
+    const keyword = utm.utm_term || utm.utm_content;
+    const keywordInfo = keyword ? `\n🔑 关键词/素材: ${keyword}` : '';
+    const campaignInfo = utm.utm_campaign ? `\n📣 广告系列: ${utm.utm_campaign}` : '';
+    const clickIdInfo = clickIdEntries.length
+      ? `\n🆔 点击ID: ${clickIdEntries.map(([k, v]) => `${k}=${v}`).join(' | ')}`
+      : '';
+    const landingInfo = attr.landingPage ? `\n🚪 落地页: ${attr.landingPage}` : '';
+    const firstSeenInfo = attr.firstSeenAt ? `\n⏱️ 首次访问: ${attr.firstSeenAt}` : '';
 
     // Format Chinese Message
     const solutionCN = SolutionMap[primarySolution as string] || primarySolution;
@@ -117,21 +123,33 @@ export async function POST(request: Request) {
 
     const lang = locale === 'zh' ? '中文' : (locale === 'en' ? 'English' : locale);
 
+    const contactLines = [
+      telegram ? `📱 Telegram: ${telegram}` : null,
+      email ? `📧 邮箱: ${email}` : null,
+    ].filter(Boolean).join('\n');
+
     const text = `🎯 来新客户线索啦！！请在4小时内回复
 🔗 落地页链接: ${landingUrl}
-📱 Telegram: ${telegram}
+${contactLines}
 💡 需求方案: ${solutionCN}${solutionDetailStr}
 📊 投放阶段: ${stageCN}
 💰 日均消耗: ${spendCN}
 🌍 目标区域: ${regionsCN}${regionDetailStr}${notesStr}
 --------------------------------
+🔗 访问来源: ${sourceText}${keywordInfo}${campaignInfo}${clickIdInfo}${landingInfo}${firstSeenInfo}
+--------------------------------
 🗣️ 网页语言: ${lang}
 🌐 浏览器语言: ${source_info?.browserLanguage || 'Unknown'}
 🌐 用户IP: ${ip}
-🔗 访问来源: ${sourceText}${keywordInfo}
 💻 设备信息: ${source_info?.userAgent || 'Unknown'}`;
 
-    const larkResponse = await fetch('https://open.larksuite.com/open-apis/bot/v2/hook/36d658e1-06a8-4e5b-a15f-4dfd7dac2b9c', {
+    const webhookUrl = process.env.LARK_WEBHOOK_URL;
+    if (!webhookUrl) {
+      console.error('LARK_WEBHOOK_URL is not set');
+      throw new Error('Notification is not configured');
+    }
+
+    const larkResponse = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

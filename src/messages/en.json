@@ -1,55 +1,57 @@
 {
   "HomePage": {
-    "title": "PWA/APK Smart Encapsulation - Intelligent Cloaking & Attribution Solution | PWA.ad",
-    "subtitle": "One-stop PWA/APK encapsulation, intelligent cloaking, and precise ad attribution services. Bypass Google Play restrictions and solve attribution issues for Real Money Gaming, Live Streaming, and Novel apps."
+    "title": "PWA/APK Wrapping & Ad Attribution | PWA.ad",
+    "subtitle": "Wrap H5 as a PWA or APK and connect mainstream ad networks and MMP postbacks. No Google Play listing required. Installs and key events are trackable."
   },
   "Hero": {
     "title_brand": "PWA.ad",
-    "title_slogan": "Build High-Conversion PWAs, Win the Ad Game",
-    "subtitle": "Turn your Web product into an App (PWA/APK) without Google Play. Solve ad restrictions and attribution issues, making your conversion data clear and actionable.",
+    "title_slogan": "Wrap H5 as a PWA. Track every install.",
+    "subtitle": "Turn your Web product into an App (PWA/APK) without Google Play. Shorten the install path and connect mainstream ad postbacks so conversions are trackable.",
     "cta_demo": "Sign Up for Free",
     "cta_contact": "Get Free Test Link",
-    "trust_badges": "✓ No GP Required &nbsp;&nbsp;|&nbsp;&nbsp; ✓ 100% Attribution &nbsp;&nbsp;|&nbsp;&nbsp; ✓ Free Test Credits on Signup",
+    "trust_badges": "No GP listing  ·  Mainstream MMP postbacks  ·  Free test credits on signup",
     "supported_platforms": "Fully supported ad networks & attribution"
   },
   "WhatIsPWA": {
     "title": "What is PWA?",
     "subtitle": "Progressive Web App is the Next Generation of App Distribution",
-    "desc": "It's not just a website, it's a super app that can be \"installed\" on the user's desktop. It combines the flexibility of the Web with the immersive experience of a Native App, completely freeing you from app store restrictions.",
+    "desc": "It's more than a website — it can be installed on the home screen. You get the iteration speed of the Web with an app-like experience, without going through an app store listing.",
     "feature1_title": "No Store Required",
-    "feature1_desc": "No redirection to Google Play. Install directly from the browser, shortening the conversion path by 50%.",
+    "feature1_desc": "No redirection to Google Play. Install directly from the browser for a shorter conversion path.",
     "feature2_title": "Native Experience",
     "feature2_desc": "Full-screen execution, home screen icon, and standalone launch. Feels exactly like a native app.",
-    "feature3_title": "Never Revoked",
-    "feature3_desc": "Based on browser technology, there is no risk of certificate revocation, ensuring asset security."
+    "feature3_title": "No Store Signing",
+    "feature3_desc": "Runs in the browser, so there is no app-store signing or listing process — and no store revocation or takedown path."
+  },
+  "HowItWorks": {
+    "title": "Get started in three steps",
+    "subtitle": "Send your H5 URL. Use a test build to verify install and postback, then go live.",
+    "step1_title": "Submit your product URL",
+    "step1_desc": "Share the H5 link, Telegram, and campaign details. No source code required.",
+    "step2_title": "Get a PWA test build",
+    "step2_desc": "We create a test project and confirm the icon, name, and install page.",
+    "step3_title": "Connect ad postbacks",
+    "step3_desc": "Hook up AppsFlyer, Adjust, or ad-platform pixels so installs and key events show in your ad dashboard."
   },
   "Features": {
     "title_part1": "PWA.ad",
-    "title_part2": "Core Advantages",
+    "title_part2": "Capabilities",
     "feature_prefix": "Advantage",
     "cloaking_title": "Free Push Notifications",
     "cloaking_desc": "Custom template push notifications from the dashboard. Reach installed users for free.",
     "cloaking_detail_title": "Zero-Cost User Recall System",
-    "cloaking_detail_desc": "Build your private traffic pool and reach users anytime via Web Push without any SMS or channel fees. Boost retention rates by over 50%.",
+    "cloaking_detail_desc": "Build a private traffic pool and reach opted-in users via Web Push without SMS or channel fees. Supports scheduled jobs and event triggers.",
     "cloaking_point1": "Custom Message Templates",
     "cloaking_point2": "Scheduled Auto-Push",
-    "cloaking_point3": "Boost CTR by 50%",
+    "cloaking_point3": "Event-Triggered Push",
 
     "attribution_title": "Precise Attribution",
     "attribution_desc": "Full support for AppsFlyer, Adjust, Facebook, TikTok, Kwai, and more.",
     "attribution_detail_title": "Full-Link Data Transparency",
-    "attribution_detail_desc": "Connect ad platforms with landing page data to solve PWA attribution gaps. Track every click, install, and registration in real-time.",
+    "attribution_detail_desc": "Connect ad platforms with PWA install data to close the attribution gap common in web distribution. Track clicks, installs, and registrations so spend can be reconciled.",
     "attribution_point1": "Support Mainstream MMPs",
     "attribution_point2": "Custom Event Postback",
     "attribution_point3": "Real-time Dashboard",
-
-    "landing_title": "Intelligent Cloaking Tech",
-    "landing_desc": "Designed for ad approval. Blocks reviewers accurately to significantly boost approval rates.",
-    "landing_detail_title": "Exclusive AI Traffic Filtering",
-    "landing_detail_desc": "We maintain a massive blacklist of reviewer IPs combined with AI behavior analysis to accurately identify Google/Facebook crawlers and manual reviewers.",
-    "landing_point1": "Identify Crawlers",
-    "landing_point2": "Block Manual Review",
-    "landing_point3": "99% Approval Rate",
 
     "commission_title": "W2A Backup Option",
     "commission_desc": "Includes Web-to-APK (W2A) capability. An extra distribution channel, extra security.",
@@ -59,11 +61,11 @@
     "commission_point2": "Google Play Ready",
     "commission_point3": "Multi-Channel Distribution",
 
-    "pixel_title": "High-Conv Templates",
-    "pixel_desc": "Built-in store-like templates that boost CTR by 300%.",
-    "pixel_detail_title": "Secret Weapon for 2x Conversion",
-    "pixel_detail_desc": "Deeply restores the Google Play Store interface, leveraging user trust to significantly reduce download hesitation. Auto-adapts language and device.",
-    "pixel_point1": "One-Click Generation",
+    "pixel_title": "PWA install templates",
+    "pixel_desc": "Built-in install guides that adapt to language and device.",
+    "pixel_detail_title": "Install guides",
+    "pixel_detail_desc": "Multiple PWA install-guide templates. Auto-adapt language and device to shorten the path from page open to Add to Home Screen.",
+    "pixel_point1": "One-click install pages",
     "pixel_point2": "Auto Language Adapt",
     "pixel_point3": "Fast Loading Speed",
 
@@ -77,7 +79,7 @@
   },
   "Dashboard": {
     "title": "Powerful & Intuitive Dashboard",
-    "cta_demo": "Book a Demo"
+    "cta_demo": "Get a test dashboard"
   },
   "Comparison": {
     "title": "Advantages of Android PWA vs Google Play Store App",
@@ -89,31 +91,31 @@
     "row_payment": "Payment Method",
     "row_push": "Push Notifications",
     "row_conversion": "Conversion Path",
-    "val_easy": "No Review / Instant Live",
+    "val_easy": "No store listing / go live immediately",
     "val_hard": "Strict Review / High Rejection",
-    "val_safe": "Never Banned / Asset Safe",
+    "val_safe": "No GP listing / no store ban path",
     "val_risk": "Frequent Bans / Frozen Funds",
     "val_zero": "0% (Keep 100% Revenue)",
     "val_high": "30% (Platform Tax)",
     "val_flexible": "Flexible (Any 3rd Party)",
     "val_strict": "Restricted (Google Pay Only)",
-    "val_permanent": "Permanent (Reach after uninstall)",
+    "val_permanent": "Web Push supported",
     "val_none": "Lost after uninstall",
     "val_better": "Short (Click to Install)",
     "val_standard": "Long (Redirect to Store)"
   },
   "CTA": {
-    "title": "Start Your Efficient & Safe Ad Journey",
-    "description": "Leave your contact info, and our experts will assist you within 4 hours to create your free test project.",
+    "title": "Get a free PWA test build",
+    "description": "Leave your contact info. We will follow up within 4 hours and create a free test project.",
     "button": "Get Free Test Link"
   },
   "FAQ": {
     "title": "FAQ - PWA Encapsulation & Attribution",
-    "subtitle": "Professional answers about PWA/APK encapsulation, intelligent cloaking, and attribution technology",
+    "subtitle": "Common questions about PWA/APK wrapping and ad attribution",
     "q1": "Do I need to provide source code for PWA?",
     "a1": "No. You only need to provide your H5 website URL and related Logo assets. We handle the encapsulation without touching your code.",
     "q2": "Will PWA apps be banned by Google Play?",
-    "a2": "Absolutely not. PWAs run on browser technology and do not rely on app store distribution, so there is zero risk of bans, takedowns, or account association.",
+    "a2": "PWAs are not distributed through Google Play, so there is no store ban or takedown path. Ad account and campaign risk still depend on platform rules and creative compliance.",
     "q3": "Which third-party platforms does the attribution system support?",
     "a3": "We are fully compatible with mainstream ad & attribution platforms including AppsFlyer, Adjust, Facebook Pixel, TikTok Pixel, and Kwai Ads, supporting full-link data postback.",
     "q4": "How long does PWA encapsulation or APK packaging take?",
@@ -123,7 +125,7 @@
     "q6": "Can I try it out?",
     "a6": "Certainly. Please contact our business team to get free test credits and experience the full process yourself.",
     "q7": "What payment methods are supported?",
-    "a7": "We only support USDT top-ups. This ensures maximum payment privacy and fund security for both parties, avoiding risks associated with traditional fiat payments.",
+    "a7": "We currently support USDT top-ups. Fees are deducted from your balance based on actual installs.",
     "q8": "Do you offer private deployment?",
     "a8": "Yes. For clients with high data security requirements, we offer private deployment upon payment of a deposit. You will need to provide server resources and domain access, and we will handle the deployment and delivery.",
     "q9": "Is there a minimum recharge amount?",
@@ -131,7 +133,7 @@
   },
   "Contact": {
     "title": "Get a Free PWA/APK Test Build",
-    "subtitle": "Submit your product URL. We'll create a test project and contact you on Telegram to confirm the setup.",
+    "subtitle": "Submit your product URL. We'll create a test project and contact you on Telegram or by email to confirm the setup.",
     "step_1_title": "Basic Info",
     "step_2_title": "Business Needs",
     "step_3_title": "Additional Notes",
@@ -139,11 +141,12 @@
     "landing_url_placeholder": "https://your-domain.com/landing-page",
     "form_telegram": "Telegram",
     "telegram_placeholder": "@username",
-    "telegram_helper": "We’ll contact you on Telegram to confirm your test build setup.",
+    "form_email": "Email",
+    "email_placeholder": "you@company.com",
+    "contact_helper": "Fill in at least one of Telegram or email. We'll reach out through whichever you provide to confirm your test build setup.",
     "form_primary_solution": "Which solution are you mainly interested in?",
     "solution_pwa": "Package my website as a PWA",
     "solution_apk": "Package my website as an APK",
-    "solution_ad_approval": "Ad platform approval solution",
     "solution_other": "Other, please specify",
     "form_campaign_stage": "Current campaign stage",
     "stage_new": "Preparing to test a new product",
@@ -174,24 +177,36 @@
     "error_submit": "Submission failed, please try again later.",
     "error_invalid_url": "Please enter a valid URL.",
     "error_invalid_telegram": "Please enter a valid Telegram username or link.",
+    "error_invalid_email": "Please enter a valid email address.",
+    "error_contact_required": "Please provide at least a Telegram handle or an email address.",
     "error_required": "This field is required.",
-    "success": "We’ve received your product URL. We’ll create a test project and contact you on Telegram to confirm the app icon, name, and attribution setup. Please make sure your Telegram privacy settings allow new contacts to message you.",
+    "error_regions": "Please select at least one target region.",
+    "success": "We’ve received your product URL. We’ll create a test project and reach out via the Telegram handle or email you provided to confirm the app icon, name, and attribution setup. If you left a Telegram handle, please make sure your privacy settings allow new contacts to message you.",
     "contact_info": "Or contact us directly:",
-    "response_time_text": "Our support team is available 24/7 to assist you with integration and troubleshooting. Typical response time is under 4 hours."
+    "response_time_text": "Our support team is available 24/7 to assist you with integration and troubleshooting. Typical response time is under 4 hours.",
+    "trust_title": "Your data stays private",
+    "trust_point1": "Business data is kept confidential",
+    "trust_point2": "1:1 onboarding with a specialist",
+    "trust_point3": "Typical response within 4 hours"
   },
   "Stats": {
-    "title": "Total Install Conversions Delivered",
-    "unit": "+",
-    "subtitle": "Trusted by global advertisers, real-time data"
+    "item1_title": "No Google Play listing",
+    "item1_desc": "Install from the browser, no Play Store listing",
+    "item2_title": "Mainstream postbacks",
+    "item2_desc": "Meta / Google / TikTok / Kwai / AppsFlyer",
+    "item3_title": "Replied in 4 hours",
+    "item3_desc": "Dedicated onboarding, free test credits"
   },
   "Navigation": {
     "home": "Home",
     "faq": "FAQ",
     "contact": "Contact",
-    "consult": "Consult Now"
+    "consult": "Consult Now",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
   },
   "Footer": {
-    "desc": "Professional PWA/APK encapsulation and distribution solution for high-growth industries.",
+    "desc": "PWA/APK wrapping and ad attribution for web products that need install distribution and measurable postbacks.",
     "service_support": "Service & Support",
     "faq": "FAQ",
     "contact_us": "Contact Us",
@@ -202,9 +217,9 @@
   "Legal": {
     "privacy_title": "Privacy Policy - PWA.ad",
     "privacy_meta_desc": "Learn how PWA.ad collects, uses, and protects your personal information. We are committed to ensuring your data security and privacy.",
-    "privacy_content": "Last Updated: March 1, 2024\n\nWelcome to PWA.ad (hereinafter referred to as \"we\" or \"us\"). We value your privacy and are committed to protecting your personal information. This Privacy Policy details how we collect, use, store, and protect your information.\n\n1. Information Collection\nTo provide you with precise PWA encapsulation, attribution analysis, and ad optimization services, we may collect the following information:\n- **Contact Information**: When you submit a consultation form, we collect your Telegram ID, business link, business type, and requirements to allow our business team to contact you.\n- **Device & Log Information**: We automatically collect your IP address, browser type, language settings, access time, and source (e.g., referral sites, ad parameters) to analyze traffic sources, optimize website experience, and prevent malicious attacks.\n- **Business Data**: When using our PWA encapsulation or attribution services, the H5 links, Logo assets, and attribution data (e.g., installs, registrations) you provide are used solely for service provision and never for other commercial purposes.\n\n2. Information Use\nWe use the collected information to:\n- Process your business requests and provide PWA encapsulation, APK generation, and attribution integration services.\n- Send service updates, technical support, or promotional notifications via Telegram or other contact methods.\n- Analyze website traffic and user behavior to optimize our product features and page design.\n- Comply with legal obligations to ensure platform and user security.\n\n3. Information Sharing & Disclosure\nWe promise to keep your information strictly confidential unless:\n- **With your explicit consent**.\n- **Required by law**: In response to mandatory requests from courts, government agencies, or legal processes.\n- **Service Necessity**: To complete attribution integration, we may need to postback non-sensitive data (e.g., attribution events) to your specified third-party platforms (e.g., AppsFlyer, Adjust, Facebook).\n\n4. Data Security\nWe employ industry-leading security technologies (e.g., SSL encryption, access control, firewalls) to protect your data. For sensitive payment information, we only support USDT cryptocurrency payments to maximize your fund and identity privacy.\n\n5. Cookies\nWe use Cookies to record your preferences and analyze traffic. You can refuse Cookies through your browser settings, but this may affect the use of some functions.\n\n6. Policy Updates\nWe may update this policy based on business development. Significant changes will be notified via website announcements or direct notifications.\n\nIf you have any questions, please contact our support team via Telegram.",
+    "privacy_content": "Last Updated: March 1, 2024\n\nWelcome to PWA.ad (hereinafter referred to as \"we\" or \"us\"). We value your privacy and are committed to protecting your personal information. This Privacy Policy details how we collect, use, store, and protect your information.\n\n1. Information Collection\nTo provide PWA wrapping and attribution services, we may collect the following information:\n- **Contact Information**: When you submit a consultation form, we collect your Telegram ID, business link, business type, and requirements to allow our business team to contact you.\n- **Device & Log Information**: We automatically collect your IP address, browser type, language settings, access time, and source (e.g., referral sites, ad parameters) to analyze traffic sources, optimize website experience, and prevent malicious attacks.\n- **Business Data**: When using our PWA wrapping or attribution services, the H5 links, Logo assets, and attribution data (e.g., installs, registrations) you provide are used solely for service provision and never for other commercial purposes.\n\n2. Information Use\nWe use the collected information to:\n- Process your business requests and provide PWA wrapping, APK generation, and attribution integration services.\n- Send service updates, technical support, or promotional notifications via Telegram or other contact methods.\n- Analyze website traffic and user behavior to optimize our product features and page design.\n- Comply with legal obligations to ensure platform and user security.\n\n3. Information Sharing & Disclosure\nWe promise to keep your information strictly confidential unless:\n- **With your explicit consent**.\n- **Required by law**: In response to mandatory requests from courts, government agencies, or legal processes.\n- **Service Necessity**: To complete attribution integration, we may need to postback non-sensitive data (e.g., attribution events) to your specified third-party platforms (e.g., AppsFlyer, Adjust, Facebook).\n\n4. Data Security\nWe use common security measures such as SSL encryption and access control. Settlement currently supports USDT.\n\n5. Cookies\nWe use Cookies to record your preferences and analyze traffic. You can refuse Cookies through your browser settings, but this may affect the use of some functions.\n\n6. Policy Updates\nWe may update this policy based on business development. Significant changes will be notified via website announcements or direct notifications.\n\nIf you have any questions, please contact our support team via Telegram.",
     "terms_title": "Terms of Service - PWA.ad",
     "terms_meta_desc": "Terms and conditions for using PWA.ad services. Please read carefully to understand your rights and obligations.",
-    "terms_content": "Effective Date: March 1, 2024\n\nWelcome to the PWA intelligent encapsulation and attribution service provided by PWA.ad. Please read the following terms carefully before using this service. Accessing or using this website constitutes your agreement to be bound by these terms.\n\n1. Service Content\nPWA.ad provides services including but not limited to:\n- H5 website to PWA/APK app encapsulation.\n- Intelligent Cloaking technology and crawler blocking.\n- Cross-platform ad attribution data integration (AppsFlyer, Adjust, Facebook, TikTok, Kwai, etc.).\n- High-conversion Google Play-like landing page generation.\n\n2. User Obligations\n- **Compliance**: You promise that the business content submitted for encapsulation complies with the laws and regulations of the target region. Using this service for fraud, malware distribution, or other illegal activities is strictly prohibited. Once discovered, we have the right to terminate the service immediately and cooperate with law enforcement investigations.\n- **Truthfulness**: You shall provide true and accurate contact information and business details. You are solely responsible for any service interruption or loss caused by incorrect information.\n- **Payment**: You agree to pay service fees on time according to the agreed price (e.g., $0.01/install) and method (USDT).\n\n3. Disclaimer\n- **Technical Limitations**: Although our intelligent cloaking technology significantly improves approval rates, due to the uncontrollability of Google/Facebook review rules, we do not promise a 100% approval success rate, nor are we responsible for ad spend losses caused by review failures.\n- **Third-Party Services**: We are not jointly liable for data loss or discrepancies caused by third-party attribution platform (MMP) or ad platform failures, but we will do our best to assist in troubleshooting.\n- **Force Majeure**: We are not liable for compensation for service interruptions caused by force majeure such as natural disasters, cyber attacks, or telecommunication failures.\n\n4. Intellectual Property\nAll code, designs, algorithms, and content of the PWA.ad website and system belong to us. You may not copy, modify, or reverse engineer our system without written permission.\n\n5. Termination\nIf you violate these terms (especially regarding illegal business), we have the right to immediately terminate the service without notice and without refunding any fees paid.\n\n6. Dispute Resolution\nThese terms are governed by relevant laws. Any disputes shall be resolved through friendly negotiation; if negotiation fails, they shall be submitted to our designated arbitration institution."
+    "terms_content": "Effective Date: March 1, 2024\n\nWelcome to the PWA wrapping and attribution service provided by PWA.ad. Please read the following terms carefully before using this service. Accessing or using this website constitutes your agreement to be bound by these terms.\n\n1. Service Content\nPWA.ad provides services including but not limited to:\n- H5 website to PWA/APK wrapping.\n- Cross-platform ad attribution integration (AppsFlyer, Adjust, Facebook, TikTok, Kwai, etc.).\n- Web Push notifications.\n- PWA install-guide page generation.\n\n2. User Obligations\n- **Compliance**: You promise that the business content submitted for wrapping complies with the laws and regulations of the target region. Using this service for fraud, malware distribution, or other illegal activities is strictly prohibited. Once discovered, we have the right to terminate the service immediately and cooperate with law enforcement investigations.\n- **Truthfulness**: You shall provide true and accurate contact information and business details. You are solely responsible for any service interruption or loss caused by incorrect information.\n- **Payment**: You agree to pay service fees on time according to the agreed price (e.g., $0.01/install) and method (USDT).\n\n3. Disclaimer\n- **Technical Limitations**: Wrapping and attribution results depend on third-party ad platforms, MMPs, and device environments. We do not guarantee advertising performance.\n- **Third-Party Services**: We are not jointly liable for data loss or discrepancies caused by third-party attribution platform (MMP) or ad platform failures, but we will do our best to assist in troubleshooting.\n- **Force Majeure**: We are not liable for compensation for service interruptions caused by force majeure such as natural disasters, cyber attacks, or telecommunication failures.\n\n4. Intellectual Property\nAll code, designs, algorithms, and content of the PWA.ad website and system belong to us. You may not copy, modify, or reverse engineer our system without written permission.\n\n5. Termination\nIf you violate these terms (especially regarding illegal business), we have the right to immediately terminate the service without notice and without refunding any fees paid.\n\n6. Dispute Resolution\nThese terms are governed by relevant laws. Any disputes shall be resolved through friendly negotiation; if negotiation fails, they shall be submitted to our designated arbitration institution."
   }
 }

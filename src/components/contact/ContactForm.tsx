@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
+import { getAttribution } from '@/lib/attribution';
 
 export default function ContactForm() {
   const t = useTranslations('Contact');
@@ -13,8 +14,12 @@ export default function ContactForm() {
   const [showOtherRegion, setShowOtherRegion] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [telegramInput, setTelegramInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [urlError, setUrlError] = useState('');
   const [telegramError, setTelegramError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [contactError, setContactError] = useState('');
+  const [regionError, setRegionError] = useState('');
 
   const validateUrl = (url: string) => {
     if (!url) return false;
@@ -53,6 +58,11 @@ export default function ContactForm() {
     return tgPattern.test(tg.trim());
   };
 
+  const validateEmail = (email: string) => {
+    if (!email) return false;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+  };
+
   const handleUrlBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const val = e.target.value.trim();
     if (val && !validateUrl(val)) {
@@ -72,6 +82,15 @@ export default function ContactForm() {
     }
   };
 
+  const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const val = e.target.value.trim();
+    if (val && !validateEmail(val)) {
+      setEmailError(t('error_invalid_email'));
+    } else {
+      setEmailError('');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -81,27 +100,45 @@ export default function ContactForm() {
       setUrlError(t('error_invalid_url'));
       return;
     }
-    if (!validateTelegram(telegramInput)) {
+    const telegram = telegramInput.trim();
+    const email = emailInput.trim();
+
+    if (!telegram && !email) {
+      setContactError(t('error_contact_required'));
+      return;
+    }
+    if (telegram && !validateTelegram(telegram)) {
       setTelegramError(t('error_invalid_telegram'));
+      return;
+    }
+    if (email && !validateEmail(email)) {
+      setEmailError(t('error_invalid_email'));
+      return;
+    }
+
+    const formData = new FormData(e.currentTarget);
+    const targetRegions = formData.getAll('targetRegions');
+    if (targetRegions.length === 0) {
+      setRegionError(t('error_regions'));
       return;
     }
 
     setSubmitting(true);
 
     try {
-      const formData = new FormData(e.currentTarget);
-      
       const data = {
         landingUrl: finalUrl,
-        telegram: telegramInput.trim(),
+        telegram,
+        email,
         primarySolution: formData.get('primarySolution'),
         primarySolutionOther: formData.get('primarySolutionOther'),
         campaignStage: formData.get('campaignStage'),
         dailyAdSpend: formData.get('dailyAdSpend'),
-        targetRegions: formData.getAll('targetRegions'),
+        targetRegions,
         targetRegionsOther: formData.get('targetRegionsOther'),
         additionalNotes: formData.get('additionalNotes'),
         locale: locale,
+        attribution: getAttribution(),
         source_info: {
           referrer: document.referrer,
           url: window.location.href,
@@ -180,27 +217,46 @@ export default function ContactForm() {
               {urlError && <p className="text-red-400 text-xs mt-2 ml-1">{urlError}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_telegram')} <span className="text-brand">*</span></label>
+              <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_telegram')}</label>
               <input 
                 type="text" 
                 name="telegram" 
-                required 
                 placeholder={t('telegram_placeholder')}
                 value={telegramInput}
                 onChange={(e) => {
                   setTelegramInput(e.target.value);
                   setTelegramError('');
+                  setContactError('');
                 }}
                 onBlur={handleTelegramBlur}
-                className={`w-full bg-slate-950/50 border ${telegramError ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-brand'} rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-brand/50 transition-all`} 
+                className={`w-full bg-slate-950/50 border ${telegramError || contactError ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-brand'} rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-brand/50 transition-all`} 
               />
-              {telegramError ? (
-                <p className="text-red-400 text-xs mt-2 ml-1">{telegramError}</p>
-              ) : (
-                <p className="text-slate-500 text-xs mt-2 ml-1">{t('telegram_helper')}</p>
-              )}
+              {telegramError && <p className="text-red-400 text-xs mt-2 ml-1">{telegramError}</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_email')}</label>
+              <input
+                type="email"
+                name="email"
+                placeholder={t('email_placeholder')}
+                value={emailInput}
+                onChange={(e) => {
+                  setEmailInput(e.target.value);
+                  setEmailError('');
+                  setContactError('');
+                }}
+                onBlur={handleEmailBlur}
+                className={`w-full bg-slate-950/50 border ${emailError || contactError ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-brand'} rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-brand/50 transition-all`}
+              />
+              {emailError && <p className="text-red-400 text-xs mt-2 ml-1">{emailError}</p>}
             </div>
           </div>
+
+          {contactError ? (
+            <p className="text-red-400 text-xs ml-1">{contactError}</p>
+          ) : (
+            <p className="text-slate-500 text-xs ml-1">{t('contact_helper')}</p>
+          )}
         </div>
 
         {/* Section 2: Business Needs */}
@@ -220,10 +276,6 @@ export default function ContactForm() {
                 <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'apk_distribution' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
                     <input type="radio" name="primarySolution" value="apk_distribution" className="accent-brand w-4 h-4" checked={selectedSolution === 'apk_distribution'} onChange={(e) => setSelectedSolution(e.target.value)} required />
                     <span className="text-sm text-slate-200">{t('solution_apk')}</span>
-                </label>
-                <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'ad_platform_approval' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
-                    <input type="radio" name="primarySolution" value="ad_platform_approval" className="accent-brand w-4 h-4" checked={selectedSolution === 'ad_platform_approval'} onChange={(e) => setSelectedSolution(e.target.value)} required />
-                    <span className="text-sm text-slate-200">{t('solution_ad_approval')}</span>
                 </label>
                 <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selectedSolution === 'other' ? 'border-brand bg-brand/10 ring-1 ring-brand/30' : 'border-white/5 bg-slate-950/50 hover:bg-white/5 hover:border-white/20'}`}>
                     <input type="radio" name="primarySolution" value="other" className="accent-brand w-4 h-4" checked={selectedSolution === 'other'} onChange={(e) => setSelectedSolution(e.target.value)} required />
@@ -246,8 +298,8 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
             <div>
                 <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_campaign_stage')} <span className="text-brand">*</span></label>
-                <select name="campaignStage" required className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
-                    <option value="" disabled selected className="text-slate-500">-- Select --</option>
+                <select name="campaignStage" required defaultValue="" className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
+                    <option value="" disabled className="text-slate-500">-- Select --</option>
                     <option value="new_product_testing">{t('stage_new')}</option>
                     <option value="h5_ready_to_launch">{t('stage_ready')}</option>
                     <option value="running_ads_improve_conversion">{t('stage_running_improve')}</option>
@@ -257,8 +309,8 @@ export default function ContactForm() {
             </div>
             <div>
                 <label className="block text-sm font-medium text-slate-300 mb-3">{t('form_ad_spend')} <span className="text-brand">*</span></label>
-                <select name="dailyAdSpend" required className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
-                    <option value="" disabled selected className="text-slate-500">-- Select --</option>
+                <select name="dailyAdSpend" required defaultValue="" className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-slate-200 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 transition-all appearance-none cursor-pointer">
+                    <option value="" disabled className="text-slate-500">-- Select --</option>
                     <option value="not_started">{t('spend_none')}</option>
                     <option value="lt_100">{t('spend_lt100')}</option>
                     <option value="100_500">{t('spend_100_500')}</option>
@@ -287,14 +339,18 @@ export default function ContactForm() {
                       name="targetRegions" 
                       value={region === 'mena' ? 'middle_east' : region} 
                       className="peer sr-only" 
-                      onChange={(e) => region === 'other' && setShowOtherRegion(e.target.checked)} 
+                      onChange={(e) => {
+                        setRegionError('');
+                        if (region === 'other') setShowOtherRegion(e.target.checked);
+                      }} 
                     />
-                    <div className="px-4 py-2.5 rounded-full border border-white/10 bg-slate-950/50 text-sm text-slate-400 peer-checked:bg-brand/10 peer-checked:border-brand peer-checked:text-brand hover:border-white/30 transition-all select-none">
+                    <div className={`px-4 py-2.5 rounded-full border bg-slate-950/50 text-sm text-slate-400 peer-checked:bg-brand/10 peer-checked:border-brand peer-checked:text-brand hover:border-white/30 transition-all select-none ${regionError ? 'border-red-500/50' : 'border-white/10'}`}>
                       {t(`region_${region}`)}
                     </div>
                   </label>
                 ))}
             </div>
+            {regionError && <p className="text-red-400 text-xs mt-3 ml-1">{regionError}</p>}
             {showOtherRegion && (
               <div className="mt-4 animate-in fade-in slide-in-from-top-2">
                 <input 
@@ -320,7 +376,7 @@ export default function ContactForm() {
         </div>
 
         <div className="pt-6 border-t border-white/5">
-          <button type="submit" disabled={submitting || !!urlError || !!telegramError} className="w-full md:w-auto md:min-w-[280px] mx-auto bg-brand hover:bg-brand-hover text-white font-bold py-4 px-8 rounded-full flex items-center justify-center gap-3 transition-all hover:shadow-[0_0_30px_rgba(0,194,80,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none">
+          <button type="submit" disabled={submitting || !!urlError || !!telegramError || !!emailError} className="w-full md:w-auto md:min-w-[280px] mx-auto bg-brand hover:bg-brand-hover text-white font-bold py-4 px-8 rounded-full flex items-center justify-center gap-3 transition-all hover:shadow-[0_0_30px_rgba(0,194,80,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none">
             {submitting ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
